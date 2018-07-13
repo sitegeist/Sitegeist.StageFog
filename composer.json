@@ -1,0 +1,20 @@
+{
+    "description": "Control reloading when nodes are modified",
+    "type": "neos-package",
+    "name": "sitegeist/stagefog",
+    "license": "GPL-3.0+",
+    "require": {
+        "neos/flow": "*",
+        "neos/neos-ui": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sitegeist\\StageFog\\": "Classes/"
+        }
+    },
+    "extra": {
+        "neos": {
+            "package-key": "Sitegeist.StageFog"
+        }
+    }
+}
