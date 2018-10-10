@@ -9,6 +9,7 @@ use Neos\Neos\Ui\Domain\Model\FeedbackInterface;
 use Neos\Neos\Ui\Domain\Model\Feedback\Operations\ReloadDocument;
 use Neos\Neos\Ui\Domain\Model\Feedback\Operations\ReloadContentOutOfBand;
 use Neos\Neos\Ui\Domain\Model\Feedback\Operations\RenderContentOutOfBand;
+use Neos\Neos\Ui\Domain\Model\Feedback\Operations\RemoveNode;
 use TYPO3Fluid\Fluid\Core\Parser\SyntaxTree\NodeInterface;
 
 /**
@@ -49,6 +50,21 @@ class BackendFeedbackCollectionAugmentationAspect
             }
         }
 
+        if ($feedback instanceof RemoveNode) {
+            $node = $feedback->getNode();
+
+            // check wether the node or one of the parents up until the documents has the option reloadWithDocument set
+            // if so add ReloadDocument feedback
+            while ($node && !$node->getNodeType()->isOfType('Neos.Neos:Document')) {
+                if ($node->getNodeType()->getConfiguration('options.reloadPageIfChanged') == TRUE) {
+                    $additionalFeedback = new ReloadDocument();
+                    $joinPoint->setMethodArgument('feedback', $feedback);
+                    $joinPoint->getProxy()->add($additionalFeedback);
+                    break;
+                }
+                $node = $node->getParent();
+            }
+        }
         return $joinPoint->getAdviceChain()->proceed($joinPoint);
     }
 
