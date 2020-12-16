@@ -3,14 +3,12 @@ namespace Sitegeist\StageFog\Aspects;
 
 use Neos\Flow\Annotations as Flow;
 use Neos\Flow\Aop\JoinPointInterface;
-use Neos\Neos\Ui\Domain\Model\Feedback\Messages\Success;
 use Neos\Neos\Ui\Domain\Model\FeedbackCollection;
 use Neos\Neos\Ui\Domain\Model\FeedbackInterface;
 use Neos\Neos\Ui\Domain\Model\Feedback\Operations\ReloadDocument;
 use Neos\Neos\Ui\Domain\Model\Feedback\Operations\ReloadContentOutOfBand;
 use Neos\Neos\Ui\Domain\Model\Feedback\Operations\RenderContentOutOfBand;
 use Neos\Neos\Ui\Domain\Model\Feedback\Operations\RemoveNode;
-use TYPO3Fluid\Fluid\Core\Parser\SyntaxTree\NodeInterface;
 
 /**
  * @Flow\Scope("singleton")
